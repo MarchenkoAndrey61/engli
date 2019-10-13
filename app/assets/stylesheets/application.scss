@@ -13,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+
+ .navbar1 a {
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+  list-style-type: none;
+  margin-right: 15px;
+}
+
+.navbar1 li {
+  list-style-type: none;
+}
+
+.navbar1 {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  justify-content: flex-end;
+}
