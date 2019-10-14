@@ -2,8 +2,8 @@
 <nav class="navbar1 navbar-dark bg-dark">
  <% if signed_in? %> 
   <li><%=li= link_to "Home", root_path %></li>
-  <li><%=li= link_to "Users", user_session_path%></li>
-  <li><%=li= link_to "View Profile", user_session_path(current_user)%></li>
+  <li><%=li= link_to "Users", users_path%></li>
+  <li><%=li= link_to "View Profile", user_path(current_user) %></li>
   <li><%=li= link_to "Edit Profile", edit_user_registration_path%></li>
   <li><%=li= link_to "Sign Out", destroy_user_session_path, method: "delete" %></li>   
 <% else%>
