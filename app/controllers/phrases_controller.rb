@@ -1,4 +1,6 @@
 class PhrasesController < ApplicationController
+
+
   def new
     @phrase = Phrase.new()
   end
@@ -8,9 +10,9 @@ class PhrasesController < ApplicationController
   end
 
   def create
-    @phrase = Phrase.new(phrase_params)
+    @phrase = current_user.phrases.new(phrase_params)
     if @phrase.save
-      flash[:notice] = 'Phrase has been created'
+      flash[:notice] = 'Phrase has been created!'
       redirect_to root_path
     else
       flash[:danger] = @phrase.errors.full_messages.to_sentence

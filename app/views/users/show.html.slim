@@ -1,2 +1,21 @@
-  h1 Username: #{@user.username}
+h1 Username: #{@user.username}
 
+h1
+  | Listing phrases
+
+table.table
+  tr
+    th
+      | Id
+    th
+      | Phrase
+    th
+      | Translation
+    th
+      | Categoty
+    
+    = render "phrases/partial", phrases: @user.phrases ,  author: false
+                
+
+
+ 

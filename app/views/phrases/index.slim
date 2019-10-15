@@ -1,0 +1,19 @@
+h1
+  | Listing phrases
+table.table
+  tr
+    th
+      | Id
+    th
+      | Phrase
+    th
+      | Translation
+    th
+      | Categoty
+    th
+      | Author
+    th
+      |Action
+  = will_paginate @phrases, renderer: BootstrapPagination::Rails
+  = render "phrases/partial",  phrases: @phrases, author: true
+

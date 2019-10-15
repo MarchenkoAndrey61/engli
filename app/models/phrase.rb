@@ -1,6 +1,7 @@
 class Phrase < ApplicationRecord
  
-
+  belongs_to :user
+  
   validates :phrase, :translation, uniqueness: true 
   
   validates :category,
