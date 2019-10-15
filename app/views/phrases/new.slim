@@ -1,25 +1,3 @@
-= form_for(@phrase) do |f|
-  - if @phrase.errors.any?
-    #error_explanation
-      h2
-        = pluralize(@phrase.errors.count, "error")
-        |  prohibited this phrase from being saved: 
-      ul
-        - @phrase.errors.full_messages.each do |message|
-          li
-            = message
-  .form
-    .field
-      = f.label :phrase
-      br
-      = f.text_field :phrase
-    .field
-      = f.label :translation
-      br
-      = f.text_field :translation
-    .field
-      = f.label :category
-      br
-      = f.select :category, Phrase.categories.keys, include_blank: "Select a category"
-    #but.actions
-      = f.submit
+
+
+      = render 'phrases/form'

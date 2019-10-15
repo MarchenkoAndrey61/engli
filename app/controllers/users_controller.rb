@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.friendly.find(params[:id])
+    @phrases = @user.phrases
   end
 end

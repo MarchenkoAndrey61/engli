@@ -13,7 +13,9 @@ table.table
       | Translation
     th
       | Categoty
-    
+      
+    - if @user == current_user
+            th Actions
     = render "phrases/partial", phrases: @user.phrases ,  author: false
                 
 
