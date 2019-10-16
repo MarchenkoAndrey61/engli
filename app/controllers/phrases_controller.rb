@@ -1,7 +1,7 @@
 class PhrasesController < ApplicationController
 
-  before_action :set_phrase!, only: [:edit, :update, :destroy]
-  
+  before_action :phrase_id!, only: [:edit, :update, :destroy]
+
 
   def new
     @phrase = Phrase.new()
@@ -49,16 +49,10 @@ class PhrasesController < ApplicationController
       params.require(:phrase).permit(:phrase, :translation, :category)
     end
 
-    def set_phrase!
+    def phrase_id!
       @phrase = Phrase.find_by(id: params[:id])
     end
   
-    def check_user!
-      unless @phrase.author? current_user
-        flash[:danger] = 'You don\'t author of phrase, go away!'
-        redirect_to(:back)
-      end
-    end
 end
 
 
