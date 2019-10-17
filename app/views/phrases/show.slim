@@ -1,0 +1,31 @@
+h1 Phrase: #{@phrase.phrase}
+
+.container-fluid
+  .row
+    .col-md-6
+      h4 Phrase: #{@phrase.phrase}
+      h4 Translation: #{@phrase.translation}
+      h4 Category: #{@phrase.category}
+
+    .col-md-6
+      h4 Author: #{@phrase.user.username}
+      h4 Created At: #{date_formatter @phrase.created_at}
+      h4 Updated At: #{date_formatter @phrase.updated_at}
+
+  .row
+    .col-lg-12
+      h2 Examples:
+
+      table.table
+        tr
+          th Example
+          th Author
+          th Created At
+
+
+        
+        = render 'example/phrase', phrases: @phrases
+
+
+      .text-center
+        = will_paginate @examples, renderer: BootstrapPagination::Rails

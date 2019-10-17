@@ -4,15 +4,24 @@ class PhrasesController < ApplicationController
 
 
   def new
-    @phrase = Phrase.new()
+    @phrase = Phrase.new
+    @phrase.examples.new
+    
   end
 
   def index
     @phrases = Phrase.includes(:user).paginate(:page => params[:page])
+   
+  end
+
+  def show
+    @phrase = Phrase.friendly.find(params[:id])
+    @examples = @phrase.examples.paginate(page: params[:page], per_page: 10)
   end
 
   def edit
-  end
+   
+  end   
 
   def update
     if @phrase.update_attributes(phrase_params)
@@ -24,7 +33,6 @@ class PhrasesController < ApplicationController
     end
   end
 
-  
 
   def create
     @phrase = current_user.phrases.new(phrase_params)
@@ -46,11 +54,13 @@ class PhrasesController < ApplicationController
     private 
 
     def phrase_params
-      params.require(:phrase).permit(:phrase, :translation, :category)
+      params.require(:phrase).permit(:phrase, :translation, :category, :user_id, :phrase_id, examples_attributes:[:example, :user_id])
+    
     end
 
+   
     def phrase_id!
-      @phrase = Phrase.find_by(id: params[:id])
+      @phrase = Phrase.friendly.find(params[:id])
     end
   
 end

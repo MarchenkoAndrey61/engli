@@ -3,3 +3,4 @@ class AddUserToPhrase < ActiveRecord::Migration[6.0]
     add_reference :phrases, :user, null: false, foreign_key: true
   end
 end
+

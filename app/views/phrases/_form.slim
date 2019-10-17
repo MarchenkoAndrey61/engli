@@ -21,5 +21,15 @@
       = f.label :category
       br
       = f.select :category, Phrase.categories.keys, include_blank: "Select a category"
+  - if @phrase.id.nil?  
+    = f.fields_for :examples do |e|
+      .field
+        = e.label :example 
+        br
+        = e.text_field :example
+        = e.hidden_field :user_id, value: current_user.id
     #but.actions
-      = f.submit
+      = f.submit  
+
+   
+    
