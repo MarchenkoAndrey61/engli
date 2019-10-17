@@ -13,6 +13,19 @@ h1 Phrase: #{@phrase.phrase}
       h4 Updated At: #{date_formatter @phrase.updated_at}
 
   .row
+    .col_lg_12
+      = form_for(@new_example) do |f|
+        .form-group
+          = f.label :example
+          br
+          = f.text_field :example
+          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :phrase_id, value: @phrase.id
+
+        #but.actions
+          = f.submit 'Create new Example'
+
+  .row
     .col-lg-12
       h2 Examples:
 

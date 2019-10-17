@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   # get 'phrases/create'
   # get 'phrases/index'
 
+  # resources :phrases shallow: true do
+  #   resources :examples, only: [:create]
+  # end
+
   root "static_pages#hello"
   resources :users
   resources :phrases
-  resources :example
+  resources :examples
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,12 +1,11 @@
 class PhrasesController < ApplicationController
 
-  before_action :phrase_id!, only: [:edit, :update, :destroy]
+  before_action :set_phrase!, only: [:edit, :update, :destroy, :show]
 
 
   def new
     @phrase = Phrase.new
     @phrase.examples.new
-    
   end
 
   def index
@@ -15,12 +14,12 @@ class PhrasesController < ApplicationController
   end
 
   def show
-    @phrase = Phrase.friendly.find(params[:id])
     @examples = @phrase.examples.paginate(page: params[:page], per_page: 10)
+    @new_example = @phrase.examples.new
+    
   end
 
   def edit
-   
   end   
 
   def update
@@ -59,7 +58,7 @@ class PhrasesController < ApplicationController
     end
 
    
-    def phrase_id!
+    def set_phrase!
       @phrase = Phrase.friendly.find(params[:id])
     end
   
