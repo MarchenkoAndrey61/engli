@@ -14,7 +14,7 @@ h1 Phrase: #{@phrase.phrase}
 
   .row
     .col_lg_12
-      = form_for(@new_example) do |f|
+      = form_for @example, :url => phrase_examples_path(@phrase) do |f|
         .form-group
           = f.label :example
           br
@@ -34,6 +34,7 @@ h1 Phrase: #{@phrase.phrase}
           th Example
           th Author
           th Created At
+          th Action
 
 
         

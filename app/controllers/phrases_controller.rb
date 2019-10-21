@@ -14,9 +14,10 @@ class PhrasesController < ApplicationController
   end
 
   def show
+    @phrase = Phrase.friendly.find(params[:id])
     @examples = @phrase.examples.paginate(page: params[:page], per_page: 10)
-    @new_example = @phrase.examples.new
-    
+    @new_example = @phrase.examples.new 
+    @example = @phrase.examples.build(:user_id => current_user.id)
   end
 
   def edit

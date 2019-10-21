@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include ExampleHelper
 
   def date_formatter(date)
 

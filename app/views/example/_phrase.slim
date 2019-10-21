@@ -3,3 +3,7 @@
     td = e.example
     td = e.user.username
     td = date_formatter e.created_at
+    - if delete_example? e
+      td = link_to 'delete', phrase_example_path(e.phrase, e), class: 'delete_phrase', method: :delete
+
+ 

@@ -1,13 +1,21 @@
 class ExamplesController < ApplicationController
 
-  before_action :set_phrase!, only: [:create]
+  before_action :set_phrase!, :authenticate_user!, only: [:create, :destroy]
   
   def show
     @examples = @phrase.examples.paginate(page: params[:page], per_page: 10)
     @example = Example.find(params[:id])
+    @new_example = @phrase.examples.new
+    
   end
 
-
+  def destroy
+  
+    @phrase.examples.find_by(id: params[:id]).destroy
+    flash[:notice] = 'Example has been deleted!'
+    redirect_to phrase_path(@phrase)
+  end
+  
   def create
     @example = @phrase.examples.new(example_params)
     if @example.save
@@ -25,7 +33,7 @@ class ExamplesController < ApplicationController
   end
 
   def set_phrase!
-    @phrase = Phrase.find(params[:example][:phrase_id])
+    @phrase = Phrase.friendly.find(params[:phrase_id])
   end
 end 
   

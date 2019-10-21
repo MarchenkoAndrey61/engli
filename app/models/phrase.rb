@@ -1,5 +1,5 @@
 class Phrase < ApplicationRecord
- 
+  include SharedMethods
   extend FriendlyId
   friendly_id :phrase, use: :slugged
 
