@@ -12,10 +12,14 @@ table.table
     th
       | Translation
     th
-      | Categoty
+      | Categoty 
+    th
+      | Actions
+    th
+      | Vote
       
     - if @user == current_user
-            th Actions
+            
     = render "phrases/partial", phrases: @user.phrases ,  author: false
                 
 

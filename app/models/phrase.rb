@@ -2,7 +2,7 @@ class Phrase < ApplicationRecord
   include SharedMethods
   extend FriendlyId
   friendly_id :phrase, use: :slugged
-
+  acts_as_votable
   belongs_to :user
   has_many :examples
   accepts_nested_attributes_for :examples, allow_destroy: true

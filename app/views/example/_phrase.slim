@@ -3,7 +3,16 @@
     td = e.example
     td = e.user.username
     td = date_formatter e.created_at
+    td
+      = link_to phrase_example_vote_path(e.phrase, e, vote: 'up'), method: :post do
+        div
+          '▲
+      | #{ e.get_likes.size - e.get_dislikes.size }
+      = link_to phrase_example_vote_path(e.phrase, e, vote: 'down'), method: :post do
+        div
+          '▼
     - if delete_example? e
       td = link_to 'delete', phrase_example_path(e.phrase, e), class: 'delete_phrase', method: :delete
-
+    
  
+

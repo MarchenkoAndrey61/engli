@@ -5,8 +5,14 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'phrases#index', as: :root_path
 
+
   resources :phrases do
-    resources :examples, only: [:create, :destroy]
+    member do
+      post :vote
+    end
+    resources :examples, only: [:create, :destroy] do
+      post :vote
+    end
   end
 
   root "static_pages#hello"

@@ -4,4 +4,5 @@ class Example < ApplicationRecord
   belongs_to :phrase
   validates :example, presence: true
   validates :example, uniqueness: true
+  acts_as_votable
 end

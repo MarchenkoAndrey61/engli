@@ -14,6 +14,8 @@ table.table
       | Author
     th
       |Action
+    th
+      |Votes  
   = will_paginate @phrases, renderer: BootstrapPagination::Rails
   = render "phrases/partial",  phrases: @phrases, author: true
 

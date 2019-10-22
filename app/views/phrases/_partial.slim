@@ -17,5 +17,14 @@
         = link_to 'edit', edit_phrase_path(phrase), class: 'edit_phrase_link'
         '  |
         = link_to 'delete', phrase, class: 'delete_phrase', method: :delete
-   
+
+    td
+      = link_to vote_phrase_path(phrase, vote: 'up'), method: :post do
+        div
+          '▲
+      | #{ phrase.get_likes.size - phrase.get_dislikes.size }
+      = link_to vote_phrase_path(phrase, vote: 'down'), method: :post do
+        div
+          '▼
+
       

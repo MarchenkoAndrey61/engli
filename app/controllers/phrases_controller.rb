@@ -1,6 +1,6 @@
 class PhrasesController < ApplicationController
 
-  before_action :set_phrase!, only: [:edit, :update, :destroy, :show]
+  before_action :set_phrase!, only: [:edit, :update, :destroy, :show, :vote]
 
 
   def new
@@ -51,6 +51,11 @@ class PhrasesController < ApplicationController
     redirect_to user_path(@phrase.user)
   end
 
+  def vote
+    shared_vote(@phrase)
+    redirect_back(fallback_location: root_path)
+  end
+  
     private 
 
     def phrase_params
@@ -62,6 +67,8 @@ class PhrasesController < ApplicationController
     def set_phrase!
       @phrase = Phrase.friendly.find(params[:id])
     end
+
+    
   
 end
 
