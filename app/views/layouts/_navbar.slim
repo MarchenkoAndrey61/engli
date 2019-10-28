@@ -12,7 +12,7 @@ nav.navbar1.navbar-dark.bg-dark
       =li= link_to "Edit Profile", edit_user_registration_path
     li
       =li= link_to notifications_path do
-        - if !!current_user.has_new_notifications?            
+        - if current_user.has_new_notifications?            
           span.circlenav
         ' Notifications
     li
@@ -23,6 +23,7 @@ nav.navbar1.navbar-dark.bg-dark
     li
       =li= link_to "Sign Up", new_user_registration_path
 
+= javascript_pack_tag 'notification' 
       
 
-                
+      

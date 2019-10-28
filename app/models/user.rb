@@ -12,7 +12,7 @@ class User < ApplicationRecord
   friendly_id :username, use: :slugged
   
   def has_new_notifications?
-    PublicActivity::Activity.where(recipient_id: self.id, readed: false).any?
+    PublicActivity::Activity.where(recipient_id: self.id, readed: [nil, false]).any?
   end
  
 end
