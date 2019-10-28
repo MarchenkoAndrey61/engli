@@ -1,14 +1,17 @@
 class ExamplesController < ApplicationController
-
+ 
   before_action :set_phrase!, :authenticate_user!, only: [:create, :destroy]
-  before_action :set_example!, only: [:destroy, :vote]
+  before_action :set_example!, only: [:destroy]
+  before_action :set_vote!, only: [:vote]
   def show
     @examples = @phrase.examples.paginate(page: params[:page], per_page: 10)
     @example = Example.find(params[:id])
     @new_example = @phrase.examples.new
-    
   end
 
+  def index
+    @new_example = @phrase.examples.order(:vote_weight => :desc)
+  end  
   def destroy
   
     @phrase.examples.find_by(id: params[:id]).destroy
@@ -29,8 +32,10 @@ class ExamplesController < ApplicationController
   def vote
     shared_vote(@example)
     redirect_back(fallback_location: root_path)
+    @example.vote_weight = @example.get_likes.size - @example.get_dislikes.size
+    @example.save
   end
-
+  
   private
 
   def example_params
@@ -41,9 +46,16 @@ class ExamplesController < ApplicationController
     @phrase = Phrase.friendly.find(params[:phrase_id])
   end
 
+ 
+
   def set_example!
+    @example = @phrase.examples.find_by(id: params[:example_id])
+  end
+
+  def set_vote!
     @example = Example.find(params[:example_id])
   end
   
 end 
   
+

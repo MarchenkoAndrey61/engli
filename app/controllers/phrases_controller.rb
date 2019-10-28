@@ -1,16 +1,17 @@
 class PhrasesController < ApplicationController
-
+  before_action :phrase_friendlyid!, only: [:edit, :update, :destroy, :vote]
   before_action :set_phrase!, only: [:edit, :update, :destroy, :show, :vote]
 
 
   def new
     @phrase = Phrase.new
     @phrase.examples.new
+   
   end
 
   def index
-    @phrases = Phrase.includes(:user).paginate(:page => params[:page])
-   
+    #@phrases= Phrase.includes(:user).order(:vote_weight => :desc).includes(:user).paginate(page: params[:page])
+    @phrases = Phrase.includes(:user).paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -54,22 +55,25 @@ class PhrasesController < ApplicationController
   def vote
     shared_vote(@phrase)
     redirect_back(fallback_location: root_path)
+    @phrase.vote_weight = @phrase.get_likes.size - @phrase.get_dislikes.size
+    @phrase.save
   end
   
+
     private 
 
     def phrase_params
       params.require(:phrase).permit(:phrase, :translation, :category, :user_id, :phrase_id, examples_attributes:[:example, :user_id])
     
     end
-
+    def phrase_friendlyid!
+      @phrase = Phrase.friendly.find(params[:id])
+    end
    
     def set_phrase!
       @phrase = Phrase.friendly.find(params[:id])
     end
 
-    
-  
 end
 
 

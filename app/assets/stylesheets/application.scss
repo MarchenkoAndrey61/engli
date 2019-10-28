@@ -35,3 +35,12 @@
   padding: 0.5rem 1rem;
   justify-content: flex-end;
 }
+
+.circlenav{
+  width: 10px;
+  height: 10px;
+  background-color: darkred;
+  border-radius: 50px; 
+  clear: both;
+  display: inline-block;
+}

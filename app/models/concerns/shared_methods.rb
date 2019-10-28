@@ -19,4 +19,9 @@ module SharedMethods
     current_user.update_attribute('carma', current_user_carma_points + 1)
   end
 
+  def set_like
+    #cached_scoped_subscribe_votes_score
+  end
+
+
 end
