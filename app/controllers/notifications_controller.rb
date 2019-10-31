@@ -7,7 +7,7 @@ end
 
 def read_all
   PublicActivity::Activity.where(recipient_id: current_user.id).update_all({readed: true})
-  render 'index'
+  
 end
 
 def set_activities

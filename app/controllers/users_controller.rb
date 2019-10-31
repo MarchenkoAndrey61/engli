@@ -10,3 +10,4 @@ class UsersController < ApplicationController
     @phrases = @user.phrases
   end
 end
+

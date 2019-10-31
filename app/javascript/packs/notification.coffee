@@ -11,4 +11,4 @@ $(document).on 'ready turbolinks:change turbolinks:load', ->
       dataType: 'json'
       error: (jqXHR, textStatus, errorThrown) ->
       success: (data, textStatus, jqXHR) ->
-        alert('OPS!!!')
+        

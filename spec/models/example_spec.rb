@@ -1,9 +1,10 @@
 require 'spec_helper'
+require 'rails_helper'
 
-describe Example do
+RSpec.describe Example do
   it "validates" do 
     example = Example.new(example: '')
     example.valid?
-    example.errors[:example].should_not be_empty
+    example.errors.should_not be_empty
   end
 end 

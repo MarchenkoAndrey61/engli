@@ -54,7 +54,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
@@ -62,8 +62,12 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
   gem 'rspec-rails'
-  gem 'factory_girl'
+  gem 'factory_bot_rails'
+  gem 'shoulda-context'
+  gem 'shoulda-matchers'
+  gem 'factory_bot'
 end
 
+gem 'rails-controller-testing'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -17,14 +17,13 @@ Rails.application.routes.draw do
   end
 
 
-  resources :notifications, only: :index do
+  resources :notifications, only: [:index] do
     collection do
       put :read_all
     end
   end
  
    
-
   root "static_pages#hello"
   resources :users
   
