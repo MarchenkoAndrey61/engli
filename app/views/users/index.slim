@@ -8,7 +8,7 @@ table.table
     th Carma
   - @users.each do |user|
     = render user
-
+  
 
 .text-center
   = will_paginate @users, renderer: BootstrapPagination::Rails
