@@ -7,25 +7,31 @@ class ApplicationController < ActionController::Base
   after_action :add_recipient_id!, only: [:vote]
   
 
-    def shared_vote(instance)
-      if params[:vote] == 'up'
+  def shared_vote(instance)
+    if params[:vote] == 'up'
+      if instance.vote_bool == 0
+        instance.undisliked_by current_user
+      else
         instance.liked_by current_user
-        instance.vote_bool = 1
-        instance.save
+      end
+      instance.vote_bool = 1
+      instance.save
+    else
+      if instance.vote_bool == 1
+        instance.unliked_by current_user
       else
         instance.downvote_from current_user
-        instance.vote_bool = 0
-        instance.save
+      end
+      instance.vote_bool = 0
+      instance.save
     end
-
     if instance.vote_registered?
       instance.set_carma(params[:vote], current_user)
       message = params[:vote] == 'up' ? 'Liked your' : 'Disliked your'
       flash[:notice] = 'Thanks for your vote!'
     else
-      flash[:danger] = 'You\'ve already voted that post!'
+      flash[:danger] = 'You\‘ve already voted that post!'
     end
-
   end
 
   def like_dislike!
@@ -62,23 +68,20 @@ class ApplicationController < ActionController::Base
   def add_recipient_id!
     @activ = PublicActivity::Activity.all
     @activ.each do |t|
-      if t.trackable_type == 'Phrase'
-        find_phrase = Phrase.find(t.trackable_id)
-        t.recipient_id = find_phrase.user_id
-        if t.owner_id == t.recipient_id
+      begin
+        if t.trackable_type == 'Phrase'
+          find_phrase = Phrase.find(t.trackable_id)
+          t.recipient_id = find_phrase.user_id
+          if t.owner_id == t.recipient_id
+            t.recipient_id = nil
+          end
+          t.save
+        else
           t.recipient_id = nil
+          t.save
         end
-        t.save
-      elsif t.trackable_type == 'Example'
-        find_example = Example.find(t.trackable_id)
-        t.recipient_id = find_example.user_id
-        if t.owner_id == t.recipient_id
-          t.recipient_id = nil
-      end 
-      t.save
-      else
-        t.recipient_id = nil
-        t.save      
+      rescue
+        break
       end
     end
     like_dislike!
@@ -91,6 +94,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+    render :status => 404
+  end
+
 end
   
 

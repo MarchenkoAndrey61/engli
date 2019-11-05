@@ -1,0 +1,2 @@
+module ErrorRoutesHelper
+end

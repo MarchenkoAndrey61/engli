@@ -10,7 +10,6 @@ class PhrasesController < ApplicationController
   end
 
   def index
-    #@phrases= Phrase.includes(:user).order(:vote_weight => :desc).includes(:user).paginate(page: params[:page])
     @phrases = Phrase.includes(:user).paginate(page: params[:page], per_page: 10)
   end
 
