@@ -14,5 +14,5 @@ class User < ApplicationRecord
   def has_new_notifications?
     PublicActivity::Activity.where(recipient_id: self.id, readed: [nil, false]).any?
   end
- 
+
 end

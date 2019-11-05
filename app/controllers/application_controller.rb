@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     if instance.vote_registered?
       instance.set_carma(params[:vote], current_user)
       message = params[:vote] == 'up' ? 'Liked your' : 'Disliked your'
-      flash[:notice] = 'Thanks for your vote!'
+      flash[:notice] = 'Thanks  your vote!'
     else
       flash[:danger] = 'You\‘ve already voted that post!'
     end
@@ -81,6 +81,7 @@ class ApplicationController < ActionController::Base
           t.save
         end
       rescue
+        
         break
       end
     end
