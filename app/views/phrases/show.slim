@@ -3,9 +3,12 @@ h1 Phrase: #{@phrase.phrase}
 .container-fluid
   .row
     .col-md-6
-      h4 Phrase: #{@phrase.phrase}
-      h4 Translation: #{@phrase.translation}
-      h4 Category: #{@phrase.category}
+      div
+        div.block_phrase
+          h4 Phrase: #{@phrase.phrase}
+        div.block_phrase 
+          h4 Translation: #{@phrase.translation}
+        h4 Category: #{@phrase.category}
 
     .col-md-6
       h4 Author: #{@phrase.user.username}

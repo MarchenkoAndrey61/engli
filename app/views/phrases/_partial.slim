@@ -3,9 +3,11 @@
     td
       = phrase.id
     td
-      = link_to phrase.phrase, phrase_path(phrase)
+      div.block_phrase
+        = link_to phrase.phrase, phrase_path(phrase)
     td
-      = phrase.translation
+      div.block_phrase
+        = phrase.translation
     td
       = phrase.category
      

@@ -10,7 +10,7 @@ class Phrase < ApplicationRecord
   has_many :examples
   accepts_nested_attributes_for :examples, allow_destroy: true
 
-  validates :phrase, :translation, uniqueness: true , length: {maximum: 235}
+  validates :phrase, :translation, uniqueness: true , length: {maximum: 30}
   
   validates :category,  
   inclusion: {
