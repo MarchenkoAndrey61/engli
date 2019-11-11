@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
           instance.undisliked_by current_user
         end
       else
-        instance.liked_by current_user
+        if current_user.voted_down_on? instance
+          instance.undisliked_by current_user
+        else
+          instance.liked_by current_user
+        end
       end
       instance.vote_bool = 1
       instance.save
@@ -29,7 +33,11 @@ class ApplicationController < ActionController::Base
           instance.unliked_by current_user
         end
       else
-        instance.downvote_from current_user
+        if current_user.voted_up_on? instance
+          instance.unliked_by current_user
+        else
+          instance.downvote_from current_user
+        end
       end
       instance.vote_bool = 0
       instance.save
