@@ -19,6 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'jquery-rails'
 
+gem 'jquery-turbolinks'
 gem "slim-rails", '~> 0.2.0'
 
 gem 'will_paginate', '~> 3.1.0'

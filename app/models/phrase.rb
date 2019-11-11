@@ -5,11 +5,12 @@ class Phrase < ApplicationRecord
   extend FriendlyId
   friendly_id :phrase, use: :slugged
   acts_as_votable
+  acts_as_voter
   belongs_to :user
   has_many :examples
   accepts_nested_attributes_for :examples, allow_destroy: true
 
-  validates :phrase, :translation, uniqueness: true 
+  validates :phrase, :translation, uniqueness: true , length: {maximum: 235}
   
   validates :category,  
   inclusion: {

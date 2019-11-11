@@ -9,7 +9,6 @@ class ApplicationRecord < ActiveRecord::Base
     :password       => ENV['password'],
     :authentication => :login,
     :enable_starttls_auto => true
-}
+  }
 
 end
-            

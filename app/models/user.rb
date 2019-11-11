@@ -3,6 +3,8 @@ class User < ApplicationRecord
   tracked owner: ->(controller, model) { controller && controller.current_user }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  acts_as_votable
+  acts_as_voter
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 

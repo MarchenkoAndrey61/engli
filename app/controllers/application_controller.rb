@@ -10,25 +10,35 @@ class ApplicationController < ActionController::Base
   def shared_vote(instance)
     if params[:vote] == 'up'
       if instance.vote_bool == 0
-        instance.undisliked_by current_user
+        if !current_user.voted_for? instance
+          instance.liked_by current_user
+        else
+          instance.undisliked_by current_user
+        end
       else
         instance.liked_by current_user
       end
       instance.vote_bool = 1
       instance.save
+      PublicActivity::Activity.last.destroy
     else
       if instance.vote_bool == 1
-        instance.unliked_by current_user
+        if !current_user.voted_for? instance
+          instance.downvote_from current_user
+        else
+          instance.unliked_by current_user
+        end
       else
         instance.downvote_from current_user
       end
       instance.vote_bool = 0
       instance.save
+      PublicActivity::Activity.last.destroy
     end
-    if instance.vote_registered?
+    if instance.vote_registered? or !current_user.voted_for? instance
       instance.set_carma(params[:vote], current_user)
       message = params[:vote] == 'up' ? 'Liked your' : 'Disliked your'
-      flash[:notice] = 'Thanks  your vote!'
+      flash[:notice] = 'Thanks for your vote!'
     else
       flash[:danger] = 'You\‘ve already voted that post!'
     end
@@ -99,8 +109,6 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
     render :status => 404
   end
-
 end
   
-
 
