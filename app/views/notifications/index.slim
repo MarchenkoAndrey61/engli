@@ -19,7 +19,11 @@ h1 #{current_user.username} Notifications
               - else 
                 | dislike your phrase
                 ' &nbsp;
-              = link_to notification.trackable.phrase, phrase_path(notification.trackable)
+              - if notification.trackable.nil?
+                s 
+                  | "phrase has been deleted"
+              - else
+                = link_to notification.trackable.phrase, phrase_path(notification.trackable)
               span.notification-date
                   ' &nbsp;
                   ' (
