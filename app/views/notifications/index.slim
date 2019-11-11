@@ -20,7 +20,7 @@ h1 #{current_user.username} Notifications
                 | dislike your phrase
                 ' &nbsp;
               - if notification.trackable.nil?
-                s 
+                s
                   | "phrase has been deleted"
               - else
                 = link_to notification.trackable.phrase, phrase_path(notification.trackable)
