@@ -10,7 +10,7 @@ FactoryBot.define do
 
   factory :phrase do
     user
-    phrase { Faker::Movies::BackToTheFuture.quote }
+    phrase { Faker::Name.unique.name }
     translation { 'Some translation'}
     slug { :phrase }
 
@@ -19,14 +19,14 @@ FactoryBot.define do
     end
 
     trait :update do
-      phrase { Faker::Movies::Ghostbusters.quote }
+      phrase { Faker::Name.unique.name }
     end
   end
 
   factory :example do
     user
     phrase
-    example { Faker::Movies::BackToTheFuture.quote}
+    example { Faker::Name.unique.name}
 
     trait :invalid do
       example { nil }
