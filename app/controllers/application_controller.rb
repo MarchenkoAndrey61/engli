@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :forbid_user_vote!, only: [:vote]
   after_action :add_recipient_id!, only: [:vote]
-  
 
   def shared_vote(instance)
     if params[:vote] == 'up'
@@ -54,20 +53,20 @@ class ApplicationController < ActionController::Base
 
   def like_dislike!
     last_active = PublicActivity::Activity.last
-    if last_active.trackable_type == 'Phrase'
-      phrase_like = Phrase.find(last_active.trackable_id)
-      if phrase_like.vote_bool == 1
-        last_active.like = 1
-        last_active.save
+      if last_active.trackable_type == 'Phrase'
+        phrase_like = Phrase.find(last_active.trackable_id)
+        if phrase_like.vote_bool == 1
+          last_active.like = 1
+          last_active.save
+        else
+          last_active.like = 0
+          last_active.save
+        end
       else
-        last_active.like = 0
         last_active.save
       end
-    else
-      last_active.save
-    end
   end
-
+  
   private
   def forbid_user_vote!
     if params[:controller] == 'examples'
@@ -85,38 +84,43 @@ class ApplicationController < ActionController::Base
 
   def add_recipient_id!
     @activ = PublicActivity::Activity.all
-    @activ.each do |t|
-      begin
-        if t.trackable_type == 'Phrase'
-          find_phrase = Phrase.find(t.trackable_id)
-          t.recipient_id = find_phrase.user_id
-          if t.owner_id == t.recipient_id
+      @activ.each do |t|
+        begin
+          if t.trackable_type == 'Phrase'
+            find_phrase = Phrase.find(t.trackable_id)
+            t.recipient_id = find_phrase.user_id
+            if t.owner_id == t.recipient_id
+              t.recipient_id = nil
+            end
+            t.save
+          else
             t.recipient_id = nil
+            t.save
           end
-          t.save
-        else
-          t.recipient_id = nil
-          t.save
+        rescue            
+          break
         end
-      rescue
-        
-        break
       end
-    end
-    like_dislike!
+      like_dislike! 
   end
-  
-  protected
 
+  protected
+  
   def configure_permitted_parameters
-    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
+    added_attrs = [:username,
+                  :email,
+                  :password,
+                  :password_confirmation,
+                  :remember_me]
+
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
+
   def not_found
     raise ActionController::RoutingError.new('Not Found')
     render :status => 404
   end
 end
-  
+
 

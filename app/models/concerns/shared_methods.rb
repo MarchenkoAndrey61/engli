@@ -1,6 +1,6 @@
 module SharedMethods
   extend ActiveSupport::Concern
-
+  
   def is_author?(user)
     self.user == user
   end
@@ -22,6 +22,4 @@ module SharedMethods
   def set_like
     #cached_scoped_subscribe_votes_score
   end
-
-
 end
